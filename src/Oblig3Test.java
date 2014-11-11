@@ -296,14 +296,15 @@ public class Oblig3Test
 
     tre.fjern(6);
     s = tre.toString();
-
+    
     if (!s.equals("[1, 3, 5, 7, 8, 9, 10, 11]"))
     {
       antallFeil++;
       System.out.println("Oppgave 5d: Feil i fjern(T)!");
     }
-
+    
     tre.fjern(9);
+    System.out.println("Etter 9: "+s);
     s = tre.toString();
 
     if (!s.equals("[1, 3, 5, 7, 8, 10, 11]"))
