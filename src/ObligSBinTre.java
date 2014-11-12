@@ -280,7 +280,14 @@ public class ObligSBinTre<T> implements Beholder<T>
             s.append(", ");
             s.append(p.verdi);
             }
-        }   
+        }
+        if(rot.venstre!=null&&rot.høyre==null){
+            while(p.venstre!=null){
+            p=p.venstre;
+            s.append(", ");
+            s.append(p.verdi);
+            }
+        }
     }
     s.append("]");
     return s.toString();
