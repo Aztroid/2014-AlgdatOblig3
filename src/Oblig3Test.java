@@ -12,7 +12,7 @@ public class Oblig3Test
     antallFeil += oppgave3();
     antallFeil += oppgave4();
     antallFeil += oppgave5();
-//    antallFeil += oppgave6();
+    antallFeil += oppgave6();
 //    antallFeil += oppgave7();
 //    antallFeil += oppgave8();
 //    antallFeil += oppgave9();
@@ -304,9 +304,7 @@ public class Oblig3Test
     }
     
     tre.fjern(9);
-    System.out.println("Etter 9: "+s);
     s = tre.toString();
-
     if (!s.equals("[1, 3, 5, 7, 8, 10, 11]"))
     {
       antallFeil++;
@@ -315,7 +313,6 @@ public class Oblig3Test
 
     tre.fjern(10); tre.fjern(11); tre.fjern(8); tre.fjern(7);
     s = tre.toString();
-
     if (!s.equals("[1, 3, 5]"))
     {
       antallFeil++;
@@ -416,8 +413,8 @@ public class Oblig3Test
 
     tre.nullstill();
     tre.leggInn(4); tre.leggInn(3); tre.leggInn(2); tre.leggInn(1);
-
     s = tre.høyreGren();
+    System.out.println(s);
     if (!s.equals("[4, 3, 2, 1]"))
     {
       antallFeil++;
