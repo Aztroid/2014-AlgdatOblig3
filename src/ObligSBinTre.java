@@ -109,13 +109,15 @@ public class ObligSBinTre<T> implements Beholder<T>
       else break;    // den søkte verdien ligger i p
     }
     if (p == null) return false;   // finner ikke verdi
-    System.out.println("Fjernes: "+verdi+" P.verdi: "+p.verdi);
+
     if (p.venstre == null || p.høyre == null)  // Tilfelle 1) og 2)
     {
       Node<T> b = p.venstre != null ? p.venstre : p.høyre;  // b for barn
       if (p == rot){
+          if(p.venstre!=null){
+              b.forelder=null;
+          }
           rot = b;
-          //System.out.println("verdien i b: "+b+"verdien i venstre: "+p.venstre+" verdien i høyre: "+p.høyre);
       }
       else if (p == q.venstre) q.venstre = b;
       else q.høyre = b;
@@ -128,19 +130,17 @@ public class ObligSBinTre<T> implements Beholder<T>
         s = r;    // s er forelder til r
         r = r.venstre;
       }
-      p.verdi = r.verdi;   // kopierer verdien i r til p
+      p.verdi = r.verdi;   // kopierer verdien i r til pbirthday
+      
       if (s != p){
+          r.høyre.forelder=s;
           s.venstre = r.høyre;
       }
       else{
+          if(r.høyre!=null){
+              r.høyre.forelder=s;
+          }
           s.høyre = r.høyre;
-          System.out.println("s.foreldre: "+s.forelder.høyre.verdi);
-//          System.out.println("p: "+p.verdi);
-//          System.out.println("s: "+s.verdi);
-//          System.out.println("s.høyre: "+s.høyre.verdi);
-//          System.out.println("r: "+r.verdi);
-//          r.høyre=null;
-//          System.out.println("r.høyre: "+r.høyre.verdi);
       }
     }
 
@@ -153,9 +153,10 @@ public class ObligSBinTre<T> implements Beholder<T>
       if(tom()){
           return 0;
       }
-      Node sjekk = rot;
       int forekomster=0;
-
+      while(fjern(verdi)){
+          forekomster++;
+      }
       return forekomster;
   }
   
@@ -221,14 +222,6 @@ public class ObligSBinTre<T> implements Beholder<T>
       return p.forelder;
     }
   }
-
-  private void inOrderHøyre(Node denne,int dybde, StringBuilder sb){
-      if(denne==null){
-          return;
-      }
-      inOrderHøyre(denne.høyre,dybde+1,sb);
-      sb.append(denne.verdi+", ");
-  }
   
   @Override
   public String toString()
@@ -272,12 +265,23 @@ public class ObligSBinTre<T> implements Beholder<T>
   }
   
   public String høyreGren()
-  {
-    Node<T> p = rot;
+    {
     StringBuilder s = new StringBuilder();
     s.append("[");
-    inOrderHøyre(rot,1,s);
-    s.setLength(s.length()-2);
+    if (!tom()) {
+        Node<T> p = rot;
+        s.append(rot.verdi);
+        while(p.høyre!=null){
+            p=p.høyre;
+            s.append(", ");
+            s.append(p.verdi);
+            while(p.venstre!=null){
+            p=p.venstre;
+            s.append(", ");
+            s.append(p.verdi);
+            }
+        }   
+    }
     s.append("]");
     return s.toString();
   }
