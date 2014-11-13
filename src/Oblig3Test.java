@@ -15,7 +15,7 @@ public class Oblig3Test
     antallFeil += oppgave6();
 //    antallFeil += oppgave7();
     antallFeil += oppgave8();
-//    antallFeil += oppgave9();
+    antallFeil += oppgave9();
 //    antallFeil += oppgave10();
 
     if (antallFeil == 0)
@@ -530,7 +530,6 @@ public class Oblig3Test
 
     tre.leggInn(11);
     s = tre.bladnodeverdier();
-    System.out.println(s);
     if (!s.equals("[11]"))
     {
       antallFeil++;
@@ -541,7 +540,6 @@ public class Oblig3Test
     int[] a = {7,5,8,15,6,9,13,16,12,14};
     for (int verdi : a) tre.leggInn(verdi);
     s = tre.bladnodeverdier();
-
     if (!s.equals("[6, 9, 12, 14, 16]"))
     {
       antallFeil++;

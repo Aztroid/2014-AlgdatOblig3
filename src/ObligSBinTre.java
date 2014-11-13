@@ -276,9 +276,9 @@ public class ObligSBinTre<T> implements Beholder<T>
             s.append(", ");
             s.append(p.verdi);
             while(p.venstre!=null){
-            p=p.venstre;
-            s.append(", ");
-            s.append(p.verdi);
+                p=p.venstre;
+                s.append(", ");
+                s.append(p.verdi);
             }
         }
         if(rot.venstre!=null&&rot.høyre==null){
@@ -298,21 +298,32 @@ public class ObligSBinTre<T> implements Beholder<T>
     throw new UnsupportedOperationException("Ikke kodet ennå!");
   }
   
+  public void blader(Node denne,int dybde,StringBuilder sb){
+      if(denne == null){
+          return;
+      }
+      blader(denne.venstre,dybde+1,sb);
+      if(denne.høyre==null && denne.venstre==null){
+          if(nesteInorden(denne)==null){
+              sb.append(denne.verdi);
+          }
+          else{
+              sb.append(denne.verdi+", ");
+          }
+      }
+      blader(denne.høyre,dybde+1,sb);
+  }
+  
   public String bladnodeverdier()
   {
-    StringBuilder s = new StringBuilder();
-    s.append("[");
-    if (!tom()) {
-        Node<T> p = rot;
-        while (p != null) {
-            if(p.venstre==null&&p.høyre==null){
-                s.append(p.verdi);
-            }
-            p = nesteInorden(p);
-        }
-    }
-    s.append("]");
-    return s.toString();
+      StringBuilder s = new StringBuilder();
+      s.append("[");
+      
+      Node p = rot;
+      blader(rot,1,s);
+      
+      s.append("]");
+      return s.toString();
   }
   
   @Override
@@ -326,9 +337,16 @@ public class ObligSBinTre<T> implements Beholder<T>
     private Node<T> p = rot, q = null;
     private boolean removeOK = false;
     
-    private BladnodeIterator()  // konstruktør
+    private BladnodeIterator()// konstruktør
     {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (rot == null) return;
+        q = førsteInorden(p);
+        while(nesteInorden(p)!=null){
+            q=nesteInorden(q);
+            if(p.venstre==null&&p.høyre==null){
+                break;
+            }
+        }
     }
     
     @Override
