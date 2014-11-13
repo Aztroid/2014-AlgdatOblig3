@@ -592,7 +592,6 @@ public class Oblig3Test
 
     tre.leggInn(10);
     i = tre.iterator();
-
     if (i.next().compareTo(10) != 0)
     {
       antallFeil++;
@@ -623,8 +622,8 @@ public class Oblig3Test
 
     List<Integer> liste = new ArrayList<>();
     tre.forEach(verdi -> liste.add(verdi));
+    
     String s = liste.toString();
-
     if (!s.equals("[1, 3, 7, 9]"))
     {
       antallFeil++;

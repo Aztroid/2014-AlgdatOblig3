@@ -340,25 +340,43 @@ public class ObligSBinTre<T> implements Beholder<T>
     private BladnodeIterator()// konstruktør
     {
         if (rot == null) return;
-        q = førsteInorden(p);
-        while(nesteInorden(p)!=null){
-            q=nesteInorden(q);
-            if(p.venstre==null&&p.høyre==null){
-                break;
+        if(rot.venstre==null&&rot.høyre==null){
+            q=p;
+            System.out.println("bladrot");
+            return;
+        }
+        else{
+            p = førsteInorden(p);
+            while (nesteInorden(p) != null) {
+                if(p.venstre==null&&p.høyre==null){
+                    System.out.println(p);
+                    q=nesteInorden(p);
+                    return;
+                }
+                System.out.println("p er endret");
+                p = nesteInorden(p);
+                q=nesteInorden(p);
             }
         }
+        
     }
     
     @Override
     public boolean hasNext()
     {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+      return q !=null;
     }
     
     @Override
-    public T next()
-    {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+    public T next() {
+        if(tom()||!hasNext()) throw new NoSuchElementException();
+        while (p.venstre!=null&&p.høyre!=null) {
+            p = nesteInorden(p);
+            q=nesteInorden(p);
+        }
+        //p er enten eller null
+        System.out.println("kødd");
+        return p.verdi;
     }
     
     @Override
