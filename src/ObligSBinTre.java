@@ -265,7 +265,7 @@ public class ObligSBinTre<T> implements Beholder<T>
   }
   
   public String høyreGren()
-    {
+  {
     StringBuilder s = new StringBuilder();
     s.append("[");
     if (!tom()) {
@@ -300,7 +300,19 @@ public class ObligSBinTre<T> implements Beholder<T>
   
   public String bladnodeverdier()
   {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+    StringBuilder s = new StringBuilder();
+    s.append("[");
+    if (!tom()) {
+        Node<T> p = rot;
+        while (p != null) {
+            if(p.venstre==null&&p.høyre==null){
+                s.append(p.verdi);
+            }
+            p = nesteInorden(p);
+        }
+    }
+    s.append("]");
+    return s.toString();
   }
   
   @Override

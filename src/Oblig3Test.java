@@ -14,7 +14,7 @@ public class Oblig3Test
     antallFeil += oppgave5();
     antallFeil += oppgave6();
 //    antallFeil += oppgave7();
-//    antallFeil += oppgave8();
+    antallFeil += oppgave8();
 //    antallFeil += oppgave9();
 //    antallFeil += oppgave10();
 
@@ -414,7 +414,6 @@ public class Oblig3Test
     tre.nullstill();
     tre.leggInn(4); tre.leggInn(3); tre.leggInn(2); tre.leggInn(1);
     s = tre.høyreGren();
-    System.out.println(s);
     if (!s.equals("[4, 3, 2, 1]"))
     {
       antallFeil++;
@@ -522,7 +521,6 @@ public class Oblig3Test
 
     tre.leggInn(10);
     s = tre.bladnodeverdier();
-
     if (!s.equals("[10]"))
     {
       antallFeil++;
@@ -532,7 +530,7 @@ public class Oblig3Test
 
     tre.leggInn(11);
     s = tre.bladnodeverdier();
-
+    System.out.println(s);
     if (!s.equals("[11]"))
     {
       antallFeil++;
