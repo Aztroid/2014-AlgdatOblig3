@@ -341,21 +341,15 @@ public class ObligSBinTre<T> implements Beholder<T>
     {
         if (rot == null) return;
         if(rot.venstre==null&&rot.høyre==null){
-            q=p;
-            System.out.println("bladrot");
             return;
         }
         else{
             p = førsteInorden(p);
-            while (nesteInorden(p) != null) {
+            while (p != null) {
                 if(p.venstre==null&&p.høyre==null){
-                    System.out.println(p);
-                    q=nesteInorden(p);
                     return;
                 }
-                System.out.println("p er endret");
                 p = nesteInorden(p);
-                q=nesteInorden(p);
             }
         }
         
@@ -364,25 +358,50 @@ public class ObligSBinTre<T> implements Beholder<T>
     @Override
     public boolean hasNext()
     {
-      return q !=null;
+      return p !=null;
     }
     
     @Override
     public T next() {
-        if(tom()||!hasNext()) throw new NoSuchElementException();
-        while (p.venstre!=null&&p.høyre!=null) {
+        if(tom()) throw new NoSuchElementException();
+        T verdien =null;
+        if(rot.venstre==null&&rot.høyre==null){
+            if(p==null) throw new NoSuchElementException();
+            verdien = p.verdi;
             p = nesteInorden(p);
-            q=nesteInorden(p);
+            q=p;
+            removeOK=true;
+            return verdien;
         }
-        //p er enten eller null
-        System.out.println("kødd");
-        return p.verdi;
+        if(p==førsteInorden(p)){
+            verdien = p.verdi;
+            p = nesteInorden(p);
+            q=p;
+            removeOK=true;
+            return verdien;
+        }
+        while (nesteInorden(p)!=null) {
+            p = nesteInorden(p);
+            if(p.høyre==null&&p.venstre==null){
+                verdien = p.verdi;
+                p = nesteInorden(p);
+                q=p;
+                removeOK=true;
+                return verdien;
+            }
+        }
+        throw new NoSuchElementException();
     }
     
     @Override
     public void remove()
     {
-      throw new UnsupportedOperationException("Ikke kodet ennå!");
+      if(!removeOK)throw new IllegalStateException();
+      if(q!=null){
+          q.forelder=null;
+          removeOK=false;
+      }
+      removeOK=false;
     }
 
   } // BladnodeIterator
