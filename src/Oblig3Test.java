@@ -13,7 +13,7 @@ public class Oblig3Test
     antallFeil += oppgave4();
     antallFeil += oppgave5();
     antallFeil += oppgave6();
-//    antallFeil += oppgave7();
+    antallFeil += oppgave7();
     antallFeil += oppgave8();
     antallFeil += oppgave9();
     antallFeil += oppgave10();
@@ -701,7 +701,6 @@ public class Oblig3Test
     try
     {
       tre.fjernHvis(x -> x % 2 == 0);  // fjerner bladnoder med partall
-      System.out.println(tre.toString());
       if (!tre.toString().equals("[1, 3, 5, 7, 8, 9, 10, 11]"))
       {
         antallFeil++;

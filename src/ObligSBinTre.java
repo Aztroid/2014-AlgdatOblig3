@@ -295,7 +295,21 @@ public class ObligSBinTre<T> implements Beholder<T>
   
   public String[] grener()
   {
-    throw new UnsupportedOperationException("Ikke kodet ennå!");
+      Deque<Node<T>> stakk = new ArrayDeque<>();
+      Node p = førsteInorden(rot);;
+      while (p != null) 
+      {
+        stakk.add(p);  
+        p = nesteInorden(p); 
+      }
+      int antall = stakk.size();
+      String[] tabell = new String[antall];
+      if(tom())return tabell;
+      StringBuilder s = new StringBuilder();
+      for(int i=0;i<antall();i++){
+          //Her skal du printe ut grener
+      }
+      return tabell;
   }
   
   public void blader(Node denne,int dybde,StringBuilder sb){
@@ -335,62 +349,28 @@ public class ObligSBinTre<T> implements Beholder<T>
   private class BladnodeIterator implements Iterator<T>
   {
     private Node<T> p = rot, q = null;
+    private Deque<Node<T>> stakk = new ArrayDeque<>();
     private boolean removeOK = false;
     
     private BladnodeIterator()// konstruktør
     {
         if (rot == null) return;
-        if(rot.venstre==null&&rot.høyre==null){
-            return;
-        }
-        else{
-            p = førsteInorden(p);
-            while (p != null) {
-                if(p.venstre==null&&p.høyre==null){
-                    return;
-                }
-                p = nesteInorden(p);
-            }
-        }
-        
+        alleblader(førsteInorden(p));
     }
     
     @Override
     public boolean hasNext()
     {
-      return p !=null;
+      return !stakk.isEmpty();
     }
     
     @Override
     public T next() {
-        if(tom()) throw new NoSuchElementException();
-        T verdien =null;
-        if(rot.venstre==null&&rot.høyre==null){
-            if(p==null) throw new NoSuchElementException();
-            verdien = p.verdi;
-            p = nesteInorden(p);
-            q=p;
-            removeOK=true;
-            return verdien;
-        }
-        if(p==førsteInorden(p)){
-            verdien = p.verdi;
-            p = nesteInorden(p);
-            q=p;
-            removeOK=true;
-            return verdien;
-        }
-        while (nesteInorden(p)!=null) {
-            p = nesteInorden(p);
-            if(p.høyre==null&&p.venstre==null){
-                verdien = p.verdi;
-                p = nesteInorden(p);
-                q=p;
-                removeOK=true;
-                return verdien;
-            }
-        }
-        throw new NoSuchElementException();
+        if (!hasNext()) throw new NoSuchElementException("Ingen verdier!");
+        q=stakk.getFirst();
+        T verdi = stakk.pollFirst().verdi;
+        removeOK=true;
+        return verdi; 
     }
     
     @Override
@@ -398,11 +378,21 @@ public class ObligSBinTre<T> implements Beholder<T>
     {
       if(!removeOK)throw new IllegalStateException();
       if(q!=null){
-          q.forelder=null;
+          fjern(q.verdi);
           removeOK=false;
       }
-      removeOK=false;
     }
+    
+    private void alleblader(Node<T> p)   // en hjelpemetode
+  {
+    while (p != null) 
+    {
+      if(p.venstre==null&&p.høyre==null){
+          stakk.add(p);  
+      }
+      p = nesteInorden(p); 
+    }
+  }
 
   } // BladnodeIterator
 
