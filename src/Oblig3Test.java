@@ -455,7 +455,6 @@ public class Oblig3Test
     tre.leggInn(10);
     s = tre.grener();
     String t = Arrays.toString(s);
-
     if (!t.equals("[[10]]"))
     {
       antallFeil++;
@@ -465,7 +464,6 @@ public class Oblig3Test
 
     tre.leggInn(6); tre.leggInn(9); tre.leggInn(7); tre.leggInn(8);
     t = Arrays.toString(tre.grener());
-
     if (!t.equals("[[10, 6, 9, 7, 8]]"))
     {
       antallFeil++;
@@ -474,11 +472,10 @@ public class Oblig3Test
     }
 
     tre.nullstill();
-
     int[] a = {4,1,6,3,5,8,2,7,9};
     for (int verdi : a) tre.leggInn(verdi);
     s = tre.grener();
-
+    System.out.println(s);
     if (!s[0].equals("[4, 1, 3, 2]") || !s[1].equals("[4, 6, 5]")
       || !s[2].equals("[4, 6, 8, 7]") || !s[3].equals("[4, 6, 8, 9]"))
     {
