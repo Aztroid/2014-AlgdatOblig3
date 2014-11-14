@@ -16,7 +16,7 @@ public class Oblig3Test
 //    antallFeil += oppgave7();
     antallFeil += oppgave8();
     antallFeil += oppgave9();
-//    antallFeil += oppgave10();
+    antallFeil += oppgave10();
 
     if (antallFeil == 0)
     {
@@ -597,7 +597,6 @@ public class Oblig3Test
       antallFeil++;
       System.out.println("Oppgave 9c: Her skal next() returnere 10!");
     }
-
     try
     {
       i.next();
@@ -698,11 +697,11 @@ public class Oblig3Test
 
     int[] a = {7,1,11,3,8,12,2,5,10,4,6,9};
     for (int verdi : a) tre.leggInn(verdi);
-
+    tre.fjernHvis(x -> x % 2 == 0);
     try
     {
       tre.fjernHvis(x -> x % 2 == 0);  // fjerner bladnoder med partall
-
+      System.out.println(tre.toString());
       if (!tre.toString().equals("[1, 3, 5, 7, 8, 9, 10, 11]"))
       {
         antallFeil++;
