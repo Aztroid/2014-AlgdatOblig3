@@ -312,37 +312,39 @@ public class ObligSBinTre<T> implements Beholder<T>
       int antall = stakk.size();
       tabell = new String[antall];
       if(tom())return tabell;
-      int teller=1;
-      for(int i=1;i=<antall;i++){
-          tabell[i]=skrivGren(i,antall);
-          i++;
-          teller++;
-          System.out.println("N orden:" +Arrays.toString(tabell));
+      Node<T> q=rot;
+      stakk.clear();
+      for(int i=0;i<antall;i++){
+          stakk.add(q);
+          while (q != null) {
+              if(q.venstre!=null&&q.høyre != null){
+                  p=q;
+              }
+              if (q.venstre == null && q.høyre == null) {
+                  break;
+              } else if (q.venstre != null) {
+                  q = q.venstre;
+              } else if (q.høyre != null) {
+                  q = q.høyre;
+              }
+              stakk.add(q);
+          }
+          tabell[i]=stakk.toString();
+          stakk.clear(); 
+          if(antall>1){
+              if(p!=null){
+                  q=p.høyre;
+              }
+              Node<T> r=rot;
+              while(p!=null){
+                  stakk.addFirst(p);
+                  p=p.forelder;
+              }
+          }
       }
       return tabell;
   }
-  
-  public String skrivGren(int i,int t){
-      Deque<Node<T>> stakk = new ArrayDeque<>();
-      System.out.println("Tall "+i +" AV "+t);
-      stakk.add(rot);
-      Node <T> p = rot;
-      while (p != null&&i==0){
-          if(p.venstre==null&&p.høyre==null){
-              break;
-          }
-          else if(p.venstre!=null){
-              p=p.venstre;
-          }
-          else{
-              p=p.høyre;
-          }
-          stakk.add(p);
-      }
-      String grenen = stakk.toString();
-      return grenen;
-  }
-  
+
   public void blader(Node denne,int dybde,StringBuilder sb){
       if(denne == null){
           return;
