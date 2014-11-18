@@ -331,15 +331,12 @@ public class ObligSBinTre<T> implements Beholder<T>
           }
           tabell[i]=stakk.toString();
           stakk.clear(); 
-          if(antall>1){
-              if(p!=null){
-                  q=p.høyre;
-              }
-              Node<T> r=rot;
-              while(p!=null){
-                  stakk.addFirst(p);
-                  p=p.forelder;
-              }
+          if(p!=null){
+              q=p.høyre;
+          }
+          while(p!=null){
+              stakk.addFirst(p);
+              p=p.forelder;
           }
       }
       return tabell;
