@@ -312,28 +312,35 @@ public class ObligSBinTre<T> implements Beholder<T>
       int antall = stakk.size();
       tabell = new String[antall];
       if(tom())return tabell;
-      Node q = rot.venstre;
-      for(int i=0;i<antall;i++){
-          tabell[i]=skrivGren(q);
-          System.out.println(skrivGren(q));
-          if(rot.høyre!=null){
-              q=rot.høyre;
-          }
+      int teller=1;
+      for(int i=1;i=<antall;i++){
+          tabell[i]=skrivGren(i,antall);
           i++;
+          teller++;
+          System.out.println("N orden:" +Arrays.toString(tabell));
       }
       return tabell;
   }
   
-  public String skrivGren(Node<T>p){
+  public String skrivGren(int i,int t){
       Deque<Node<T>> stakk = new ArrayDeque<>();
+      System.out.println("Tall "+i +" AV "+t);
       stakk.add(rot);
-      while (p != null){ 
-        stakk.add(p);  
-      if(p.høyre==null&&p.venstre==null)break;
-      else if(p.venstre!=null)p = p.venstre;
-      else p= p.høyre;
+      Node <T> p = rot;
+      while (p != null&&i==0){
+          if(p.venstre==null&&p.høyre==null){
+              break;
+          }
+          else if(p.venstre!=null){
+              p=p.venstre;
+          }
+          else{
+              p=p.høyre;
+          }
+          stakk.add(p);
       }
-      return stakk.toString();
+      String grenen = stakk.toString();
+      return grenen;
   }
   
   public void blader(Node denne,int dybde,StringBuilder sb){
